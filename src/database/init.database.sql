@@ -19,13 +19,20 @@ CREATE TABLE roles (
     role_description TEXT
 );
 
+-- Insert default roles into the roles table
+INSERT INTO roles (role_id, role_name, role_description) VALUES
+(1, 'user', 'Default role for regular users.'),
+(2, 'moderator', 'Role for users who can moderate content.'),
+(3, 'support', 'Role for support staff.'),
+(4, 'admin', 'Role for administrators with full access.');
+
 -- Create users table
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
+    username VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role_id INT REFERENCES roles(role_id) NOT NULL
+    role_id INT DEFAULT 1 REFERENCES roles(role_id) NOT NULL
 );
 
 -- Create exercises table
